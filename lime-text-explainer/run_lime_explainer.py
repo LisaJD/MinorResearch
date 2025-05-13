@@ -26,6 +26,10 @@ explainer = explainer.LimeExplainer(similarity.cosine_distance, config)
 # Generate explanation for a given datapoint
 X_test = vectorizer.transform(test_texts)
 idx = 139
+
+# Print chosen text example to explain
+print(test_texts[idx])
+
 explanation = explainer.generate_explanation(X_test[idx], clf, vectorizer)
 prediction = clf.predict(X_test[idx])
 print("Prediction: ", categories[prediction[0]])

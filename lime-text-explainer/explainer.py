@@ -39,7 +39,7 @@ class LimeExplainer:
         self.k_lasso.fit(Z_binary, y_pred, lasso__sample_weight=sample_weights)
 
         coef = self.k_lasso.named_steps['lasso'].coef_
-        print(coef[coef != 0])
+        # print(coef[coef != 0])
         feature_names = vectorizer.get_feature_names_out()
 
         return explanation.format_word_weights(coef, feature_names, self.topk_indices)

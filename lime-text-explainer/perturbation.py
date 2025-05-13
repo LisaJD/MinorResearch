@@ -5,18 +5,13 @@ from typing import Tuple
 import perturbation, reconstruction, similarity
 
 def sample_around(x_sparse: csr_matrix) -> pd.DataFrame:
-            # print(x_interpretable)
             # Convert sparse matrix to dense array (1D)
             x_dense = x_sparse.toarray().flatten()
 
             # Create perturbation: if the original value is non-zero, randomly choose 0 or 1; else, keep 0
             # z is binary 0 or 1 to indicate absence choosing or not choosing a word 
             z_binary = np.where(x_dense != 0, np.random.randint(0, 2, size=x_dense.shape), 0)
-            
-            # z = np.where(x_dense != 0, np.random.randint(0, 2), 0)
 
-            # Wrap in a pandas DataFrame for easy manipulation later
-            # z_binary = pd.DataFrame([z], columns=[f'feat_{i}' for i in range(len(z))]) 
             return z_binary
 
 
