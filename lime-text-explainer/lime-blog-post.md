@@ -207,6 +207,41 @@ def format_word_weights(coef, feature_names, topk_indices) -> List[Tuple[str, fl
     return sorted_feature_weights
 ```
 
+## Example outputs
+
+Data point to be explained
+```
+I had allergy shots for about four years starting as a sophomore in high
+school.  Before that, I used to get bloody noses, nighttime asthma attacks,
+and eyes so itchy I couldn't get to sleep.  After about 6 months on the
+shots, most of those symptoms were gone, and they haven't come back.  I
+stopped getting the shots (due more to laziness than planning) in college.
+My allergies got a little worse after that, but are still nowhere near as
+bad as they used to be.  So yes, the shots do work.
+```
+
+Classifier prediction results and actual result 
+```
+Prediction:  sci.med
+Actual:  sci.med
+```
+
+Output of the text explainer when K=10. Larger positive values mean the word contributed to the sci.med prediction. Larger positive values indicate that the word contributes to the prediction of sci.med. Larger negative values indicate that the word pushes the prediction away from sci.med, i.e., toward sport.hockey in this binary classification setting.
+```
+to: 0.0430
+the: -0.0329
+about: 0.0311
+used: 0.0277
+of: 0.0221
+and: 0.0188
+work: 0.0168
+they: -0.0161
+My: 0.0140
+sleep: 0.0140
+```
+
+The result is polluted with stopwords like 'to' and 'the', which ideally we don't want to be included in the model because it means the model is relying on spurious features. Ways to improve this are listed in 'Possible next steps' section, and include removing these words in pre-processing stage.
+
 ## Possible next Steps
 - Implementing submodular pick (algorithm for deciding how many instances should be explained)
 - Improving the text explainer by removing stopwords, making all lower case, trying RIDGE instead of LASSO, experimenting with different kernel widths and values for top-k
